@@ -3,7 +3,7 @@ import FileUpload from './components/FileUpload'
 import Summary from './components/Summary'
 import { useState } from 'react'
 function App() {
-  const [uploadedFile, setUploadFile] = useState(null);
+  const [ uploadedFile, setUploadFile] = useState(null);
 
   return (
     <>
@@ -11,8 +11,8 @@ function App() {
       <Header />
       {
         uploadedFile ?
-        <Summary /> :
-         <FileUpload/>
+        <Summary file={uploadedFile} /> :
+         <FileUpload setFile={setUploadFile} />
       }
    
 
