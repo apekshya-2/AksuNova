@@ -1,8 +1,10 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useState, useEffect } from "react";
+import Loader from "./Loader";
 
 function Summary({ file }) {
   const [summary, setSummary] = useState("Loading summary...");
+  const [status, setStatus] = useState("idle");
 
   useEffect(() => {
     if (!file) return;
@@ -11,6 +13,7 @@ function Summary({ file }) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     async function getSummary() {
+      setStatus("loading");
       try {
         const result = await model.generateContent([
           {
@@ -22,10 +25,12 @@ function Summary({ file }) {
           "Summarize this document",
         ]);
 
-        setSummary(result.response.text());
+        setStatus("success");
+        setSummary(await result.response.text());
       } catch (err) {
         console.error(err);
-        setSummary("❌ Failed to generate summary.");
+        setStatus("error");
+        setSummary("❌ Failed to generate summary: " + err.message);
       }
     }
 
@@ -34,11 +39,8 @@ function Summary({ file }) {
 
   return (
     <section className="summary">
-      <h2>Summary</h2>
-      <p>{summary}</p>
-
       <h3>File Preview</h3>
-      {file.type.includes("image") ? (
+      {file?.type?.includes("image") ? (
         <img
           src={`data:${file.type};base64,${file.file}`}
           alt="preview"
@@ -52,6 +54,11 @@ function Summary({ file }) {
           type={file.type}
         />
       )}
+
+      <h2>Summary</h2>
+      {status === "loading" && <Loader />}
+      {status === "success" && <p>{summary}</p>}
+      {status === "error" && <p>{summary}</p>}
     </section>
   );
 }
