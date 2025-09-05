@@ -1,0 +1,84 @@
+.chat-window {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.chat-window h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.user p {
+  background-color: #d1e7ff;
+  color: #0b5394;
+  padding: 0.5rem 0.75rem;
+  border-radius: 15px;
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+.model p {
+  background-color: #e2ffe2;
+  color: #137333;
+  padding: 0.5rem 0.75rem;
+  border-radius: 15px;
+  align-self: flex-end;
+  max-width: 80%;
+}
+
+.error p {
+  background-color: #ffe2e2;
+  color: #a70000;
+  padding: 0.5rem 0.75rem;
+  border-radius: 15px;
+  align-self: center;
+  max-width: 90%;
+  font-style: italic;
+}
+
+.input-area {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.input-area button {
+  padding: 0.5rem 1rem;
+  background-color: #0b5394;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.input-area button:hover {
+  background-color: #073763;
+}

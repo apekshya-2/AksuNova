@@ -15,18 +15,27 @@ function Summary({ file }) {
     async function getSummary() {
       setStatus("loading");
       try {
-        const result = await model.generateContent([
-          {
-            inlineData: {
-              data: file.file,
-              mimeType: file.type,
+        const result = await model.generateContent({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                {
+                  inlineData: {
+                    data: file.file, // ✅ base64 string
+                    mimeType: file.type, // ✅ correct MIME type (image/png, application/pdf, etc.)
+                  },
+                },
+                {
+                  text: `Summarize this document in one short paragraph (less than 100 words). Use plain text with no markdown or HTML.`,
+                },
+              ],
             },
-          },
-          "Summarize this document",
-        ]);
+          ],
+        });
 
         setStatus("success");
-        setSummary(await result.response.text());
+        setSummary(result.response.text());
       } catch (err) {
         console.error(err);
         setStatus("error");
